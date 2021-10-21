@@ -118,6 +118,10 @@
                 return this.optional(element) || /^[a-z]+$/i.test(value);
             }); 
 
+            jQuery.validator.addMethod("minimal5000", function(harga, element) {
+                harga = harga.replace(/\s+/g, ""); 
+                return this.optional(element) || harga.match(/^[5-9]\d{3,}$/);
+            });
         $("#regForm").validate({
             rules:{               
                 name:{
@@ -128,7 +132,7 @@
                 price:{
                     required:true,
                     number:true,
-                    minlength:4
+                    minimal5000: true
                 },
                 jenis:{
                     required:true,
@@ -148,7 +152,7 @@
                 price:{
                     required:"Harap memasukkan harga barang",
                     number:"Harap memasukkan angka saja",
-                    minlength:"Minimal 5000"
+                    minimal5000:"Minimal 5000"
                 },
                 jenis:{
                     required:"Harap memilih jenis barang",
